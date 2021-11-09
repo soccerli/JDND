@@ -19,6 +19,8 @@ import com.example.demo.model.persistence.repositories.ItemRepository;
 import com.example.demo.model.persistence.repositories.UserRepository;
 import com.example.demo.model.requests.ModifyCartRequest;
 
+import javax.transaction.Transactional;
+
 @RestController
 @RequestMapping("/api/cart")
 public class CartController {
@@ -33,6 +35,7 @@ public class CartController {
 	private ItemRepository itemRepository;
 	
 	@PostMapping("/addToCart")
+	@Transactional
 	public ResponseEntity<Cart> addTocart(@RequestBody ModifyCartRequest request) {
 		User user = userRepository.findByUsername(request.getUsername());
 		if(user == null) {
@@ -50,6 +53,7 @@ public class CartController {
 	}
 	
 	@PostMapping("/removeFromCart")
+	@Transactional
 	public ResponseEntity<Cart> removeFromcart(@RequestBody ModifyCartRequest request) {
 		User user = userRepository.findByUsername(request.getUsername());
 		if(user == null) {
